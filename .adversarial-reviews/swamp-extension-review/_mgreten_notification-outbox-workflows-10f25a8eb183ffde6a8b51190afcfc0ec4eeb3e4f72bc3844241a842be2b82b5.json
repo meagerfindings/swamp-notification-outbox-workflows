@@ -1,0 +1,15 @@
+{
+  "extension": "@mgreten/notification-outbox-workflows",
+  "version": "2026.08.23.1",
+  "reviewedAt": "2026-08-23T19:46:00Z",
+  "dimensions": [
+    { "id": "credentials-secrets", "verdict": "pass", "note": "Workflows accept model names and transport options but define, persist, or log no credentials; secret handling remains with caller-selected models and vault references." },
+    { "id": "logging-quality", "verdict": "na", "note": "Declarative workflows have no custom logging surface; Swamp records each model and nested-workflow step." },
+    { "id": "error-handling", "verdict": "pass", "note": "Transport failure is explicitly retained, exactly one success/failure drain branch runs, and drain failures propagate; empty exact scopes complete as a deliberate no-op." },
+    { "id": "testing-completeness", "verdict": "pass", "note": "Synthetic fixtures exercised success branching, deduplicated replay, transport failure with retry-state persistence, malformed contracts, empty exact scope, and all workflow validation." },
+    { "id": "idempotency-resilience", "verdict": "pass", "note": "The outbox owns deduplication and retry state, each transport call receives the notification dedupKey, and a replay producing no enqueue artifact dispatches nothing." },
+    { "id": "api-contracts", "verdict": "pass", "note": "The send input now exactly matches the dependency's strict notification resource contract; transport remains an explicit caller-supplied payload/idempotencyKey/options contract." },
+    { "id": "resource-management", "verdict": "na", "note": "The workflows open no files or connections and create no provider resources directly." },
+    { "id": "published-surface-hygiene", "verdict": "pass", "note": "README and packaged fixtures use synthetic non-routable model names and generic incident content only." }
+  ]
+}
